@@ -19,21 +19,13 @@ def divide(a, b):
 
 
 def baby_lisp(lisp_string):
-    print(lisp_string)
-    brackets_1 = re.sub(r"\)", "))", lisp_string)
-    brackets_2 = "" + brackets_1
-    mults = re.sub(r"multiply\s+", "multiply(", brackets_2)
-    adds = re.sub(r"add\s+", "add(", mults)
-    subtracts = re.sub(r"subtract\s+", "subtract(", adds)
-    divides = re.sub(r"divide\s+", "divide(", subtracts)
-    commas = re.sub(r" ", ",", divides)
+    brackets = re.sub(r"\)", "))", lisp_string)
+    commands = re.sub(r"([a-z]+) ", r"\1(", brackets)
+    final = re.sub(r" ", ",", commands)
 
-    print(commas)
-    return eval(commas)
+    return eval(final)
 
 
 assert baby_lisp("(add 1 2)") == 3
-
 assert baby_lisp("(multiply 4 (add 2 3))") == 20
-
 assert baby_lisp("(multiply (add (subtract 2 1) (multiply 5 1)) (add 2 3))") == 30
